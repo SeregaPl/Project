@@ -52,7 +52,7 @@ if df is not None:
 
     st.divider()
 
-    # --- 2. ЛИНЕЙНЫЙ ГРАФИК (БЕЗ 2026) ---
+    # --- 2. ЛИНЕЙНЫЙ ГРАФИК ---
     col1, col2 = st.columns([2, 1])
 
     with col1:
