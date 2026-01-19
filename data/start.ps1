@@ -25,7 +25,6 @@ function Wait-For-Service($Name, $TestCommand, $MaxRetries = 30) {
     throw "${Name} failed to start."
 }
 
-# Ждем сервисы
 Wait-For-Service "HDFS" "docker exec namenode hdfs dfsadmin -safemode get"
 Wait-For-Service "Hive" "docker exec hive-server beeline -u jdbc:hive2://localhost:10000 -n root --silent=true -e 'SHOW DATABASES;'"
 
@@ -42,18 +41,18 @@ Write-Host "Running Hive init script..." -ForegroundColor Cyan
 docker cp $hiveScriptName hive-server:/tmp/$hiveScriptName
 Exec-Docker "hive-server" "beeline -u jdbc:hive2://localhost:10000 -n root --silent=true -f /tmp/$hiveScriptName"
 
-# 4. ЭКСПОРТ (КАК В PUSK.ps1, НО БЫСТРЕЕ)
+# 4. ЭКСПОРТ
 Write-Host "Exporting to ${finalCsvName} using csv2 format..." -ForegroundColor Cyan
 
 # Формируем запрос
 $hiveQuery = "SELECT brand, title, year_prod, price, CAST(avg_price_year AS INT), probeg, mileage_status, seller_type, predicted_liquidity, link FROM auto_db.car_analytics"
 
-# ИСПОЛЬЗУЕМ outputformat=csv2 (как в PUSK.ps1)
+# ИСПОЛЬЗУЕМ outputformat=csv2
 # Это автоматически экранирует запятые в названиях машин, чтобы строки не ломались.
 # Мы вручную создаем заголовок, а потом дописываем данные, фильтруя логи grep-ом.
 Exec-Docker "hive-server" "echo 'brand,title,year_prod,price,market_avg,probeg,mileage_status,seller_type,predicted_liquidity,link' > /tmp/output.csv && beeline -u jdbc:hive2://localhost:10000 -n root --silent=true --outputformat=csv2 --showHeader=false -e '$hiveQuery' | grep -v 'jdbc:hive2' >> /tmp/output.csv"
 
-# Копируем файл (это быстрее, чем pipe в PowerShell для 1.5 млн строк)
+# Копируем файл
 docker cp hive-server:/tmp/output.csv "./$finalCsvName"
 
 Write-Host "Done! File saved as $finalCsvName" -ForegroundColor Green
