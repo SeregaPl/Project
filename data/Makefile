@@ -26,7 +26,6 @@ setup:
 clean-hdfs:
 	docker exec namenode hdfs dfs -rm -r /data/cars
 
-# --- Твои оригинальные команды (исправленные) ---
 
 build:
 	docker build -t bde2020/hadoop-base:$(current_branch) ./base
