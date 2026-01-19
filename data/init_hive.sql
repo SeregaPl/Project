@@ -5,7 +5,7 @@ SET hive.cli.print.header=true;
 CREATE DATABASE IF NOT EXISTS auto_db;
 USE auto_db;
 
--- 2. Таблица (без изменений)
+-- 2. Таблица
 DROP TABLE IF EXISTS cars;
 CREATE EXTERNAL TABLE cars (
     brand STRING, title STRING, year_prod INT, probeg INT, price INT,
@@ -15,7 +15,7 @@ ROW FORMAT DELIMITED FIELDS TERMINATED BY ';'
 STORED AS TEXTFILE LOCATION '/data/cars'
 TBLPROPERTIES ('serialization.encoding'='UTF-8');
 
--- 3. Аналитика (УБИРАЕМ WHERE price > 30000)
+-- 3. Аналитика
 DROP TABLE IF EXISTS car_analytics;
 CREATE TABLE car_analytics AS
 SELECT *,
@@ -42,7 +42,7 @@ FROM (
     -- Здесь мы убрали фильтр по цене, чтобы вошли все 1.5 млн
 ) t;
 
--- 4. ВЫВОД В ТЕРМИНАЛ (Оставляем как было, без ссылок)
+-- 4. ВЫВОД В ТЕРМИНАЛ
 SELECT brand, title, year_prod, price, CAST(avg_price_year AS INT) as market_avg,
     probeg, mileage_status, seller_type, predicted_liquidity
 FROM (
