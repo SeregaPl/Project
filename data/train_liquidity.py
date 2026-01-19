@@ -56,7 +56,6 @@ data = assembler.transform(df_indexed)
 train_data, test_data = data.randomSplit([0.8, 0.2], seed=1234)
 
 # 4. Архитектура Нейросети
-# Слои: Вход(5) -> Скрытый(10) -> Скрытый(8) -> Выход(3)
 layers = [5, 10, 8, 3]
 
 trainer = MultilayerPerceptronClassifier(
