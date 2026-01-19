@@ -20,7 +20,7 @@
 git init
 
 # Загрузка проекта
-git clone [https://github.com/SeregaPl/Project.git](https://github.com/SeregaPl/Project.git)
+git clone https://github.com/SeregaPl/Project.git
 
 ```
 
