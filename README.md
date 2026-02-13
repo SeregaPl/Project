@@ -37,5 +37,5 @@ git clone https://github.com/SeregaPl/Project.git
 
 | <img src="https://github.com/SeregaPl.png" width="100px;"/> | <img src="https://github.com/Ilidan999.png" width="100px;"/> |
 | :---: | :---: |
-| **SeregaPl** | **Ilidan** |
+| **SeregaPl** | **Ilidаn** |
 | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/SeregaPl) | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github)](https://github.com/Ilidan999) |
